@@ -1,10 +1,10 @@
 # irods-restful-example
 Example python scripts to demonstrate the irods-restful interface
 
-## configuration file
+## Configuration
 The configuration file is located at `etc/config.ini`.  The contents in the file should be self-explained.
 
-## run the script
+## Running the script
 Simply run the script as follows:
 
 ```Bash
