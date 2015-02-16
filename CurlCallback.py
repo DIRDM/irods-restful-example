@@ -16,6 +16,10 @@ class Test:
     def body_callback(self, buf):
         self.contents = self.contents + buf
 
+    def progress_callback(self, download_t, download_d, upload_t, upload_d):
+        print 'total to upload', upload_t
+        print 'total uploaded', upload_d
+
 class FileContent(Test):
 
     def __init__(self, mode, fpath_local):
@@ -23,6 +27,7 @@ class FileContent(Test):
         # TODO: use new style constructor inheritance
         Test.__init__(self)
 
+        self.fd = None 
         self.mode = mode
         self.content_length = 0
         self.c_transferred = 0
@@ -30,9 +35,8 @@ class FileContent(Test):
 
         self.bar = progress.Bar(label='%s ' % os.path.basename(fpath_local), expected_size=100)
 
-        if self.mode == 'upload':
-            self.fd = open(fpath_local, 'rb')
-        else:
+        # for file upload, we use the HTTPPOST to post a form rather than reading file content 
+        if self.mode == 'download':
             self.fd = open(fpath_local, 'wb')
 
     def header_callback(self, buf):
@@ -50,18 +54,21 @@ class FileContent(Test):
 
     def progress_callback(self, download_t, download_d, upload_t, upload_d):
 
-        if type == 'upload':
+        total_size = self.content_length
+        if self.mode == 'upload':
+           # get total size of transfer from upload_t
+            total_size = upload_t
             if upload_d != self.c_transferred:
                 self.c_transferred = upload_d
         else:
             if download_d != self.c_transferred:
                 self.c_transferred = download_d
 
-        if self.content_length:
-            r = int(100*self.c_transferred/self.content_length)
+        if upload_t:
+            r = int(100*self.c_transferred/upload_t)
             if r != self.r_transferred:
+                self.bar.show(r)
                 self.r_transferred = r
-                self.bar.show(int(100*self.c_transferred/self.content_length))
         else:
             self.bar.show(0)
 
