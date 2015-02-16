@@ -5,7 +5,7 @@ import pycurl
 import base64
 import json
 
-from Common import getConfig
+from Common import getConfig, getPassword
 from CurlCallback import FileContent
 #from CurlCallback import Test
 
@@ -48,12 +48,23 @@ if __name__ == "__main__":
                       default = 'donders',
                       help    = 'specify the institute')
 
+    parg.add_argument('-u','--user',
+                      action  = 'store',
+                      dest    = 'user',
+                      default = '',
+                      help    = 'connect with specified iRODS account')
+
     args = parg.parse_args()
 
-    accept_frsp      = 'application/json'
-    auth             = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (cfg.get('iRODS','username'), cfg.get('iRODS','password')))
-    base_url         = cfg.get('RESTFUL','http_endpt')
-    remote_fpath     = 'rdm-tst/%s/%s/%s' % (args.institute, args.centre, args.collection[0])
+    if args.user:
+        passwd = getPassword()
+        auth = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (args.user, passwd))
+    else:
+        auth = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (cfg.get('iRODS','username'), cfg.get('iRODS','password')))
+
+    accept_frsp = 'application/json'
+    base_url = cfg.get('RESTFUL','http_endpt')
+    remote_fpath = 'rdm-tst/%s/%s/%s' % (args.institute, args.centre, args.collection[0])
 
     if args.path:
         remote_fpath = '%s/%s' % (remote_fpath, args.path)

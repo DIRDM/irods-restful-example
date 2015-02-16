@@ -64,8 +64,8 @@ class FileContent(Test):
             if download_d != self.c_transferred:
                 self.c_transferred = download_d
 
-        if upload_t:
-            r = int(100*self.c_transferred/upload_t)
+        if total_size:
+            r = int(100*self.c_transferred/total_size)
             if r != self.r_transferred:
                 self.bar.show(r)
                 self.r_transferred = r
@@ -75,4 +75,4 @@ class FileContent(Test):
     def close(self):
         if self.fd:
             self.fd.close()
-            self.bar.done()
+        self.bar.done()
