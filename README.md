@@ -59,3 +59,7 @@ Those scripts are to be run in the following sequence:
     ```bash
     $ ./demo_file_management.sh
     ```
+    
+    __Remark__:
+    
+    * File transfer via interface is based on the file streaming mechanism, which is not on the equal footing with the `iput/iget` command in terms of functionality and performance. As a consequence, policy enforcement points in the rule engine, e.g. `acPostProcForPut`, is not triggered as expected. More details on this issue can be traced [here](https://github.com/irods/irods/issues/2055) and [here](https://github.com/EUDAT-B2SAFE/B2SAFE-core/issues/18).
