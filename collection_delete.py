@@ -5,7 +5,7 @@ import pycurl
 import base64
 import json
 
-from Common import getConfig
+from Common import getConfig, getTemporaryPassword
 from CurlCallback import Test
 
 
@@ -35,15 +35,26 @@ if __name__ == "__main__":
                       default = 'donders',
                       help    = 'specify the institute')
 
+    parg.add_argument('-u','--user',
+                      action  = 'store',
+                      dest    = 'user',
+                      default = '',
+                      help    = 'connect with specified iRODS account')
 
     args = parg.parse_args()
 
+    accept_frsp  = 'application/json'
+    base_url     = cfg.get('RESTFUL','http_endpt')
+    http_request = 'DELETE'
+
     for c in args.collection:
-        accept_frsp      = 'application/json'
-        auth             = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (cfg.get('iRODS','username'), cfg.get('iRODS','password')))
-        base_url         = cfg.get('RESTFUL','http_endpt')
-        resource         = 'collection/rdm-tst/%s/%s/%s' % (args.institute, args.centre, c)
-        http_request     = 'DELETE'
+        if args.user:
+            passwd = getTemporaryPassword(args.user)
+            auth = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (args.user, passwd))
+        else:
+            auth = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (cfg.get('iRODS','username'), cfg.get('iRODS','password')))
+
+        resource = 'collection/rdm-tst/%s/%s/%s' % (args.institute, args.centre, c)
 
         ## several listing options
         params=[]

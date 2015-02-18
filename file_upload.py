@@ -5,7 +5,7 @@ import pycurl
 import base64
 import json
 
-from Common import getConfig, getPassword
+from Common import getConfig, getPassword, getTemporaryPassword
 from CurlCallback import FileContent
 #from CurlCallback import Test
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     args = parg.parse_args()
 
     if args.user:
-        passwd = getPassword()
+        passwd = getTemporaryPassword(args.user)
         auth = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (args.user, passwd))
     else:
         auth = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (cfg.get('iRODS','username'), cfg.get('iRODS','password')))

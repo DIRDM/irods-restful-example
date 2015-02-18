@@ -4,7 +4,7 @@ import os
 import pycurl
 import base64
 
-from Common import getConfig
+from Common import getConfig, getTemporaryPassword
 from CurlCallback import Test
 
 
@@ -34,22 +34,33 @@ if __name__ == "__main__":
                       default = 'donders',
                       help    = 'specify the institute')
 
+    parg.add_argument('-u','--user',
+                      action  = 'store',
+                      dest    = 'user',
+                      default = '',
+                      help    = 'connect with specified iRODS account')
+
     args = parg.parse_args()
 
+    accept_frsp  = 'application/json'
+    base_url     = cfg.get('RESTFUL','http_endpt')
+    http_request = 'PUT'
 
     roleMap = {'manager':'OWN', 'contributor':'WRITE', 'user':'READ'}
 
     for coll in args.collection:
         for r, acl in roleMap.iteritems():
 
-            accept_frsp      = 'application/json'
-            auth             = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (cfg.get('iRODS','username'), cfg.get('iRODS','password')))
-            base_url         = cfg.get('RESTFUL','http_endpt')
-            resource         = 'collection/rdm-tst/%s/%s/%s/acl/%s_%s' % (args.institute, args.centre, coll, coll, r)
-            http_request     = 'PUT'
+            if args.user:
+                passwd = getTemporaryPassword(args.user)
+                auth = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (args.user, passwd))
+            else:
+                auth = 'Authorization: Basic %s' % base64.b64encode("%s:%s" % (cfg.get('iRODS','username'), cfg.get('iRODS','password')))
 
-            permission       = acl
-            recursive        = True   ## default is False
+            resource = 'collection/rdm-tst/%s/%s/%s/acl/%s_%s' % (args.institute, args.centre, coll, coll, r)
+
+            permission = acl
+            recursive = True   ## default is False
 
             ## several listing options
             params = []
