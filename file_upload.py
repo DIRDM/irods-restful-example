@@ -7,7 +7,6 @@ import json
 
 from Common import getConfig, getPassword, getTemporaryPassword
 from CurlCallback import FileContent
-#from CurlCallback import Test
 
 if __name__ == "__main__":
 
@@ -80,14 +79,12 @@ if __name__ == "__main__":
     print 'uploading %s to %s ...' % (args.fpath[0], dest_url)
 
     t = FileContent(mode='upload', fpath_local=args.fpath[0])
-    #t = Test()
 
     c = pycurl.Curl()
     c.setopt(c.URL, dest_url)
     c.setopt(c.CUSTOMREQUEST , http_request)
     c.setopt(c.HEADERFUNCTION, t.header_callback)
     c.setopt(c.WRITEFUNCTION , t.body_callback)
-    #c.setopt(c.READFUNCTION, t.read_callback)
     c.setopt(c.NOPROGRESS, 0)
     c.setopt(c.PROGRESSFUNCTION, t.progress_callback)
     c.setopt(c.HTTPHEADER, ['ACCEPT: %s' % accept_frsp, auth])
