@@ -24,7 +24,9 @@ Those scripts are to be run in the following sequence:
     $ ./demo_cleanup.sh
     ```
 
-    _Remark:_ the current RESTful API of iRODS does not provide interface for removing iRODS user.  Thus, to really make the instance clean, one needs to use the `iadmin` command to remove the user `demo_user` in addition.
+    __Remarks__:
+    
+    * The current RESTful API of iRODS does not provide interface for removing iRODS user.  Thus, to really make the instance clean, one needs to use the `iadmin` command to remove the user `demo_user` in addition.
 
 2. initialise a collection `dac_00002` and set up relevant groups for access control
 
@@ -32,13 +34,19 @@ Those scripts are to be run in the following sequence:
     $ ./demo_init_collection.sh
     ```
     
-    _Remark:_ set of access permission inheritance is not available on the RESTful interface.
+    __Remark__:
+    
+    * Access permission inheritance can not be set via the RESTful interface. It's a desired feature.
 
 3. add new user `demo_user` and grant the user with the management permission (role) in the collection
 
     ```bash
     $ ./demo_init_user.sh
     ```
+    
+    __Remark__:
+    
+    * A password needs to be provided when adding new user; while it's not necessary via the `iadmin` command.
 
 4. manage collection metadata with the created user `demo_user` 
 
