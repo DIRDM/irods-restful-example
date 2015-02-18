@@ -57,7 +57,10 @@ if __name__ == "__main__":
         resource = 'collection/rdm-tst/%s/%s/%s' % (args.institute, args.centre, c)
 
         ## several listing options
+        force = True
         params=[]
+        if force:
+            params.append('force=True')
         dest_url = '?'.join([os.path.join(base_url, resource), '&'.join(params)])
 
         print 'sending %s to %s' % (http_request, dest_url)
