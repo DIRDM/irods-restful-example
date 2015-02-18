@@ -40,7 +40,7 @@ if __name__ == "__main__":
                       action  = 'store',
                       dest    = 'metadata',
                       default = '',
-                      help    = 'specify the metadata AVU in comma-separated sets of "key:val:unit"')
+                      help    = 'specify the metadata AVU in comma-separated sets of "key|val|unit"')
 
     parg.add_argument('-u','--user',
                       action  = 'store',
@@ -72,8 +72,8 @@ if __name__ == "__main__":
         ## compose the request body
         content_type = 'application/json'
         avu_data = {'metadataEntries': []}
-        for avu in re.split(',\s+', args.metadata):
-            md = avu.split(':')
+        for avu in re.split(',\s?', args.metadata):
+            md = avu.split('|')
 
             if len(md) < 2:
                 print 'ignore set: %s' % avu
