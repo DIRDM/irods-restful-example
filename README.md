@@ -14,7 +14,7 @@ $ ./server_get_info.py
 Command-line arguments are available via `-h` option.
 
 ## Sequence of running the bash demo scripts
-To make the demo easier, several bash scripts with prefix `demo_` are used. An instruction/node is given for the upcoming demonstration step.  Press any key to proceed for the demonstration step.
+To make the demo easier, several bash scripts with prefix `demo_` are used. An instruction/note is given for the upcoming demonstration step.  Press any key to proceed for the demonstration step.
 
 Those scripts are to be run in the following sequence:
 
