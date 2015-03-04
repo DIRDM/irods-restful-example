@@ -72,14 +72,14 @@ if __name__ == "__main__":
         ## compose the request body
         content_type = 'application/json'
         avu_data = {'metadataEntries': []}
-        for avu in re.split(',\s?', args.metadata):
+        for avu in re.split('\+{2,4}', args.metadata):
             md = avu.split('|')
 
             if len(md) < 2:
                 print 'ignore set: %s' % avu
 
             elif len(md) == 2:
-                avu_data['metadataEntries'].append({'attribute':md[0], 'value':md[1], 'unit':'any'})
+                avu_data['metadataEntries'].append({'attribute':md[0], 'value':md[1], 'unit':''})
             else:
                 avu_data['metadataEntries'].append({'attribute':md[0], 'value':md[1], 'unit':md[2]})
 

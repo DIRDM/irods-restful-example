@@ -5,7 +5,7 @@ echo "====>    * projectOwner: Hurng-Chun Lee"
 echo "====>    * projectOwnerEmail: h.lee@donders.ru.nl"
 echo "====>    * projectMgmtURL: http://projects.fcdonders.nl/index.php/projects/view/3010000.01"
 read
-./collection_metadata_add.py -u demo_user -m 'projectId|3010000.01,projectMgmtURL|http://projects.fcdonders.nl/index.php/projects/view/3010000.01,projectOwner|Hurng-Chun Lee,projectOwnerEmail|h.lee@donders.ru.nl' dac_00002
+./collection_metadata_add.py -u demo_user -m 'projectId|3010000.01++projectMgmtURL|http://projects.fcdonders.nl/index.php/projects/view/3010000.01++projectOwner|Hurng-Chun Lee++projectOwnerEmail|h.lee@donders.ru.nl' dac_00002
 
 echo "====> 2. Get metadata of collection dac_00002 ..."
 read
