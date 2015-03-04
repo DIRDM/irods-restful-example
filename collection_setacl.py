@@ -46,7 +46,7 @@ if __name__ == "__main__":
     base_url     = cfg.get('RESTFUL','http_endpt')
     http_request = 'PUT'
 
-    roleMap = {'manager':'OWN', 'contributor':'WRITE', 'user':'READ'}
+    roleMap = {'manager':'OWN', 'contributor':'WRITE', 'viewer':'READ', 'reviewer':'READ', 'mdreviewer':'READ_METADATA'}
 
     for coll in args.collection:
         for r, acl in roleMap.iteritems():

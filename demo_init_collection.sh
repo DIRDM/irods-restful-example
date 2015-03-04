@@ -6,7 +6,7 @@ read
 
 echo "====> 2. Create user groups associated with the colleciton dac_00002 ..."
 read
-./group_create.py dac_00002_manager dac_00002_contributor dac_00002_user
+./group_create.py dac_00002_manager dac_00002_contributor dac_00002_viewer dac_00002_reviewer dac_00002_mdreviewer
 
 echo "====> 3. Set group permission for collection dac_00002 ..."
 read
