@@ -80,15 +80,20 @@ if __name__ == "__main__":
     c.setopt(c.PROGRESSFUNCTION, t.progress_callback)
     c.setopt(c.HTTPHEADER, [auth])
     c.perform()
+    http_code = c.getinfo(c.HTTP_CODE)
     c.close()
 
     # close the downloading, this is essentially close the file descriptor
     t.close()
 
-    # check if local file size is the same as the content-length
-    if t.content_length != os.path.getsize(fpath_local):
-        print 'download file %s not OK' % fpath_local
+    # check the http code 
+    if http_code not in ['200']:
+        if os.path.exists(fpath_local):
+            os.unlink(fpath_local)
+            print t.header
     else:
-        print 'download file %s OK' % fpath_local
-
-    #print json.dumps( json.loads(t.contents), indent=4, sort_keys=True, separators=(',',':') )
+        # check if local file size is the same as the content-length
+        if t.content_length != os.path.getsize(fpath_local):
+            print 'download file %s not OK' % fpath_local
+        else:
+            print 'download file %s OK' % fpath_local
