@@ -1,6 +1,6 @@
 #!/bin/bash
+new_coll=$1
 user_name="du_dccn_admin"
-new_coll="dac_00001"
 coll_manager="du_manager_${new_coll}"
 
 echo "====> 1. Create demo user '${user_name}'"

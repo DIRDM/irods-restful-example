@@ -1,5 +1,5 @@
 #!/bin/bash
-coll="dac_00001"
+coll=$1
 coll_manager="du_manager_$coll"
 coll_contributor="du_contrib_$coll"
 coll_viewer="du_viewer_$coll"

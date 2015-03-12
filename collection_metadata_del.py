@@ -79,7 +79,7 @@ if __name__ == "__main__":
                 print 'ignore set: %s' % avu
 
             elif len(md) == 2:
-                avu_data['metadataEntries'].append({'attribute':md[0], 'value':md[1], 'unit':'any'})
+                avu_data['metadataEntries'].append({'attribute':md[0], 'value':md[1], 'unit':''})
             else:
                 avu_data['metadataEntries'].append({'attribute':md[0], 'value':md[1], 'unit':md[2]})
 
