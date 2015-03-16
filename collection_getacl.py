@@ -31,8 +31,8 @@ if __name__ == "__main__":
     parg.add_argument('-i','--institute',
                       action  = 'store',
                       dest    = 'institute',
-                      choices = ['donders'],
-                      default = 'donders',
+                      choices = ['di'],
+                      default = 'di',
                       help    = 'specify the institute')
 
     parg.add_argument('-u','--user',
