@@ -62,4 +62,4 @@ def getTemporaryPassword(username):
     c.perform()
     c.close()
 
-    return json.loads(t.contents)['templatePassword']['password']
+    return json.loads(t.contents)['temporaryPassword']['password']
